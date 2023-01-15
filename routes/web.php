@@ -9,6 +9,8 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\GraficaController;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\PaginaController;
+use App\Models\Pagina;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +36,9 @@ Route::view('dashboard', 'pagina')->name('dashboard')->middleware('auth');
 Route::view('login', 'auth.login')->name('login');*/
 
 Route::get('/', function () {
-    return view('welcome');
+    $c = Pagina::contar(request()->path());
+    
+    return view('welcome',compact('c'));
 });
 
 Route::view('login', 'auth.login')->name('login');

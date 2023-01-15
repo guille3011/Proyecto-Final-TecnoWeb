@@ -62,6 +62,7 @@
         </form>
            
       </div>
+      <h4>nro visitas {{$c}}</h4>
    </div>
   
 @endsection

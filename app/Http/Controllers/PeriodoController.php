@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Periodo;
+use App\Models\Pagina;
 
 class PeriodoController extends Controller
 {
@@ -11,13 +12,15 @@ class PeriodoController extends Controller
     public function index()
     {
         $periodos=Periodo::all();
-        return view('periodo.index', compact('periodos'));
+        $c = Pagina::contar(request()->path());
+        return view('periodo.index', compact('periodos','c'));
     }
 
  
     public function create()
     {
-        return view('periodo.create');
+        $c = Pagina::contar(request()->path());
+        return view('periodo.create', compact('c'));
     }
 
    
@@ -48,8 +51,9 @@ class PeriodoController extends Controller
    
     public function edit($id)
     {
+        $c = Pagina::contar(request()->path());
         $periodo=Periodo::findOrfail($id);
-       return view('periodo.edit',compact('periodo'));
+       return view('periodo.edit',compact('periodo','c'));
     }
 
     
