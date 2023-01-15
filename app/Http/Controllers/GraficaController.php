@@ -7,6 +7,7 @@ use App\Models\Activity;
 use Illuminate\Support\Facades\DB;
 use App\Models\Periodo;
 use App\Models\User;
+use App\Models\Pagina;
 
 
 class GraficaController extends Controller
@@ -42,8 +43,8 @@ class GraficaController extends Controller
 
       //  dump($newarray2);
       // dump($aryper);
-
-       return view('grafica',compact('newarray','arrayN','newarray2','aryper'));
+      $c = Pagina::contar(request()->path());
+       return view('grafica',compact('newarray','arrayN','newarray2','aryper'),compact('c'));
    }
 
 

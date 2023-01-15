@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Pagina;
 use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
@@ -12,14 +13,16 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('user.index', compact('users'));
+        $c = Pagina::contar(request()->path());
+        return view('user.index', compact('users','c'));
     }
 
 
     public function create()
     {
         $roles = DB::table('roles')->get();
-        return view('user.create', compact('roles'));
+        $c = Pagina::contar(request()->path());
+        return view('user.create', compact('roles','c'));
     }
 
 
@@ -56,7 +59,8 @@ class UserController extends Controller
         $roles = DB::table('roles')->get();
         $idrole=DB::table('model_has_roles')->where('model_id', $id)->value('role_id');
         $user = User::findOrfail($id);
-        return view('user.edit', compact('user', 'roles','idrole'));
+        $c = Pagina::contar(request()->path());
+        return view('user.edit', compact('user', 'roles','idrole'),compact('c'));
     }
 
 
@@ -95,7 +99,8 @@ class UserController extends Controller
     public function editaruser(){
         $user = User::findOrFail(Auth::user()->id);
         $idrole=DB::table('model_has_roles')->where('model_id', $user->id)->value('role_id');
-        return view('user.edituser', compact('user','idrole'));
+        $c = Pagina::contar(request()->path());
+        return view('user.edituser', compact('user','idrole','c'));
     }
 
     public function destroy($id)

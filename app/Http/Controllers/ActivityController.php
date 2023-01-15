@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\Pagina;
 
 class ActivityController extends Controller
 {
@@ -19,8 +20,8 @@ class ActivityController extends Controller
         $usuarios=DB::table('users')
         ->where('estado', '=', 1)
         ->get();
-
-        return view('Actividad.index',compact('actividades','usuarios'));
+        $c = Pagina::contar(request()->path());
+        return view('Actividad.index',compact('actividades','usuarios','c'));
     }
 
     public function viewActividadesUser(){
@@ -31,8 +32,8 @@ class ActivityController extends Controller
                             ->orderBy('date_fin', 'asc')
                             ->get();
 
-       
-        return view('Actividad.indexUser',compact('actividades'));
+        $c = Pagina::contar(request()->path());
+        return view('Actividad.indexUser',compact('actividades','c'));
     }
 
 
@@ -48,8 +49,8 @@ class ActivityController extends Controller
         $periodos=DB::table('periodos')
         ->where('estado', '=', 1)
         ->get();
-
-        return view('Actividad.create',compact('usuarios','statuses','periodos'));
+        $c = Pagina::contar(request()->path());
+        return view('Actividad.create',compact('usuarios','statuses','periodos'),compact('c'));
     }
 
 
@@ -93,8 +94,8 @@ class ActivityController extends Controller
         $usuarios=DB::table('users')
         ->where('estado', '=', 1)
         ->get();
-
-        return view('Actividad.edit',compact('actividad','statuses','periodos','usuarios'));
+        $c = Pagina::contar(request()->path());
+        return view('Actividad.edit',compact('actividad','statuses','periodos','usuarios'),compact('c'));
     }
 
 
@@ -119,8 +120,8 @@ class ActivityController extends Controller
         $statuses=DB::table('statuses')
         ->where('estado', '=', 1)
         ->get();
-
-        return view('Actividad.editUser',compact('actividad','statuses'));
+        $c = Pagina::contar(request()->path());
+        return view('Actividad.editUser',compact('actividad','statuses','c'));
     }
 
     public function editarActividadUser(Request $request, Activity $actividad){
