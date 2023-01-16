@@ -9,6 +9,8 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\GraficaController;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\PaginaController;
+use App\Models\Pagina;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +36,9 @@ Route::view('dashboard', 'pagina')->name('dashboard')->middleware('auth');
 Route::view('login', 'auth.login')->name('login');*/
 
 Route::get('/', function () {
-    return view('welcome');
+    $c = Pagina::contar(request()->path());
+    
+    return view('welcome',compact('c'));
 });
 
 Route::view('login', 'auth.login')->name('login');
@@ -53,10 +57,12 @@ Route::post('login', function(){
 Route::get('/turuta', function(){
     Artisan::call('storage:link');
 });
-//--------
+//--------------------------------------------
 
 Route::resource('periodo',PeriodoController::class)->names('periodo');
+Route::get('pdfperiodo',[PeriodoController::class, 'pdfPeriodo'])->name('pdfperiodo');
 Route::resource('user',UserController::class)->names('user');
+Route::get('pdf',[UserController::class, 'pdf'])->name('pdf');
 Route::get('editaruser',[UserController::class,'editaruser'])->name('editaruser');
 Route::get('grafica',[GraficaController::class, 'grafica'])->name('grafica');
 

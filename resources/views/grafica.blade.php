@@ -6,11 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    <link rel="stylesheet" href="{{asset('librerias/morris.js/morris.css')}}">
 
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    {{-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css"> --}}
+    {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script> --}}
+    
+    <script src="{{ asset('librerias/morris.js/jquery.min.js') }}"></script>
+    <script src="{{ asset('librerias/morris.js/raphael-min.js') }}"></script>
+    <script src="{{ asset('librerias/morris.js/morris.min.js') }}"></script>
+
+
     <title>Gráfica</title>
 </head>
 
@@ -27,9 +34,10 @@
                 <h2 class="text-center">Gráfica Actividades Realizadas por Periodo </h2>
                 <hr>
                 <div id="barra" style="height: 350px; " class="bg-white  shadow"></div>
-            
-           </div>
+
+            </div>
         </div>
+        <div><h4>nro visitas {{$c}}</h4></div>
     </div>
 
 </body>
@@ -98,29 +106,29 @@
     });
 </script>
 <script>
-   // Use Morris.Bar
-   Morris.Bar({
-       element: 'barra',
-       data: [
+    // Use Morris.Bar
+    Morris.Bar({
+        element: 'barra',
+        data: [
 
-           <?php
-           foreach ($newarray2 as $clave => $valor) {
-               echo "{x: '" . $aryper[$clave-1] . "',y: " . $valor . '},';
-           }
-           ?>
-       ],
-       xkey: 'x',
-       ykeys: ['y'],
-       labels: ['actividades'],
-       barColors: function(row, series, type) {
-           if (type === 'bar') {
-               var red = Math.ceil(255 * row.y / this.ymax);
-               return 'rgb(' + red + ',0,0)';
-           } else {
-               return '#000';
-           }
-       }
-   });
+            <?php
+            foreach ($newarray2 as $clave => $valor) {
+                echo "{x: '" . $aryper[$clave - 1] . "',y: " . $valor . '},';
+            }
+            ?>
+        ],
+        xkey: 'x',
+        ykeys: ['y'],
+        labels: ['actividades'],
+        barColors: function(row, series, type) {
+            if (type === 'bar') {
+                var red = Math.ceil(255 * row.y / this.ymax);
+                return 'rgb(' + red + ',0,0)';
+            } else {
+                return '#000';
+            }
+        }
+    });
 </script>
 
 </html>

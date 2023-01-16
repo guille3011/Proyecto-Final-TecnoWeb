@@ -75,7 +75,8 @@
             </button>
           </div>
         </form>
-           
+            
+        <div><h4>nro visitas {{$c}}</h4></div>
       </div>
    </div>
   

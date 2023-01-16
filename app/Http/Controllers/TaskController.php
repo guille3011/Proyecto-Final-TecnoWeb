@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Activity;
 use App\Models\Status;
 use App\Models\User;
+use App\Models\Pagina;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,8 +20,8 @@ class TaskController extends Controller
         $usuarios=DB::table('users')
         ->where('estado', '=', 1)
         ->get();
-
-        return view('Tarea.indexActividades',compact('actividades','usuarios'));
+        $c = Pagina::contar(request()->path());
+        return view('Tarea.indexActividades',compact('actividades','usuarios','c'));
     }
 
     public function viewActividadesUser(){
@@ -30,21 +31,22 @@ class TaskController extends Controller
                             ->orderBy('date_fin', 'asc')
                             ->get();
 
-
-        return view('Tarea.indexActividadesUser',compact('actividades'));
+                            $c = Pagina::contar(request()->path());
+        return view('Tarea.indexActividadesUser',compact('actividades','c'));
     }
 
     public function viewTareas(Activity $actividad){
         $tareas=DB::table('tasks')
         ->where('id_activity','=',$actividad->id)
         ->get();
-
-        return view('Tarea.index',compact('tareas','actividad'));
+        $c = Pagina::contar(request()->path());
+        return view('Tarea.index',compact('tareas','actividad','c'));
     }
 
     public function crearTareaView(Activity $actividad){
         $statuses=Status::all();
-        return view('Tarea.create',compact('actividad','statuses'));
+        $c = Pagina::contar(request()->path());
+        return view('Tarea.create',compact('actividad','statuses','c'));
     }
 
 
@@ -58,16 +60,16 @@ class TaskController extends Controller
         $data['id_activity']=$actividad->id;
 
         Task::create($data);
-
-        return redirect()->route('tarea.view',compact('actividad'));
+        $c = Pagina::contar(request()->path());
+        return redirect()->route('tarea.view',compact('actividad','c'));
     }
 
 
     public function editarTareaView(Task $tarea,Activity $actividad){
         $tarea=Task::where('id',$tarea->id)->first();
         $statuses=Status::all();
-
-        return view('Tarea.edit',compact('tarea','actividad','statuses'));
+        $c = Pagina::contar(request()->path());
+        return view('Tarea.edit',compact('tarea','actividad','statuses','c'));
     }
 
 
@@ -79,7 +81,8 @@ class TaskController extends Controller
         ]);
 
         $tarea->update($validate);
-        return redirect()->route('tarea.view',compact('actividad'));
+        $c = Pagina::contar(request()->path());
+        return redirect()->route('tarea.view',compact('actividad','c'));
     }
 
 

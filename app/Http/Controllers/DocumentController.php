@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Pagina;
 
 class DocumentController extends Controller
 {
@@ -19,8 +20,8 @@ class DocumentController extends Controller
         $usuarios=DB::table('users')
         ->where('estado', '=', 1)
         ->get();
-
-        return view('Documento.indexActividades',compact('actividades','usuarios'));
+        $c = Pagina::contar(request()->path());
+        return view('Documento.indexActividades',compact('actividades','usuarios','c'));
     }
 
     public function viewActividadesUser(){
@@ -30,20 +31,21 @@ class DocumentController extends Controller
                             ->orderBy('date_fin', 'asc')
                             ->get();
 
-
-        return view('Documento.indexActividadesUser',compact('actividades'));
+                            $c = Pagina::contar(request()->path());
+        return view('Documento.indexActividadesUser',compact('actividades','c'));
     }
 
     public function viewDocumentos(Activity $actividad){
         $documentos=DB::table('documents')
         ->where('id_activity','=',$actividad->id)
         ->get();
-
-        return view('Documento.index',compact('documentos','actividad'));
+        $c = Pagina::contar(request()->path());
+        return view('Documento.index',compact('documentos','actividad','c'));
     }
 
     public function crearDocumentoView(Activity $actividad){
-        return view('Documento.create',compact('actividad'));
+        $c = Pagina::contar(request()->path());
+        return view('Documento.create',compact('actividad','c'));
     }
 
 
@@ -62,15 +64,15 @@ class DocumentController extends Controller
             $data['url']=Storage::disk('public')->put('Documentos',$request->url);
         }
         Document::create($data);
-
-        return redirect()->route('documento.view',compact('actividad'));
+        $c = Pagina::contar(request()->path());
+        return redirect()->route('documento.view',compact('actividad','c'));
     }
 
 
     public function editarDocumentoView(Document $documento,Activity $actividad){
         $documento=Document::where('id',$documento->id)->first();
-
-        return view('Documento.edit',compact('documento','actividad'));
+        $c = Pagina::contar(request()->path());
+        return view('Documento.edit',compact('documento','actividad','c'));
     }
 
 
@@ -86,6 +88,7 @@ class DocumentController extends Controller
     
             $validate['url'] = Storage::disk('public')->put('Documentos', $request->url);
         }
+        
 
         $documento->update($validate);
         return redirect()->route('documento.view',compact('actividad'));

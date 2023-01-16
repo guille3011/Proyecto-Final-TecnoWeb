@@ -17,6 +17,15 @@
                 Agregar
             </a>              
              </button> 
+             <button class="rounded-lg bg-light shadow btn-md ">
+                <a href="{{ route('pdf') }}" >
+                    <span>
+                        <i class="fa fa-file " style="color: #fa1808"></i>
+                    </span>
+                    &nbsp;
+                    Pdf
+                </a>              
+                 </button>
           @endcan
 
             <div class="overflow-x-auto relative  sm:rounded-lg  ">
@@ -60,6 +69,7 @@
                 </table>
             </div>
         </div>
+        <div><h4>nro visitas {{$c}}</h4></div>
     </div>
 @endsection
 
