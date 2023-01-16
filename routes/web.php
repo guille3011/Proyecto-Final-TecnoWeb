@@ -57,10 +57,12 @@ Route::post('login', function(){
 Route::get('/turuta', function(){
     Artisan::call('storage:link');
 });
-//--------
+//--------------------------------------------
 
 Route::resource('periodo',PeriodoController::class)->names('periodo');
+Route::get('pdfperiodo',[PeriodoController::class, 'pdfPeriodo'])->name('pdfperiodo');
 Route::resource('user',UserController::class)->names('user');
+Route::get('pdf',[UserController::class, 'pdf'])->name('pdf');
 Route::get('editaruser',[UserController::class,'editaruser'])->name('editaruser');
 Route::get('grafica',[GraficaController::class, 'grafica'])->name('grafica');
 

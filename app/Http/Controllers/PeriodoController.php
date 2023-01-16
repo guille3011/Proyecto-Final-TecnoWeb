@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Periodo;
 use App\Models\Pagina;
+use App\Models\Activity;
 
 class PeriodoController extends Controller
 {
@@ -76,5 +77,11 @@ class PeriodoController extends Controller
         $periodo->estado=0;
         $periodo->save();
         return redirect()->route('periodo.index');
+    }
+
+    public function pdfPeriodo(){
+        $actividades=Activity::orderBy('id_periodo','ASC')->get();
+        $pdf= \PDF::loadView('seguimiento.pdf',compact('actividades'));
+        return $pdf->stream('activity.pdf');
     }
 }

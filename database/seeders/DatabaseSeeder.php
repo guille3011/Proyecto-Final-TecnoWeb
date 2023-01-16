@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(StatusSeeder::class);
         $this->call(PeriodoSeeder::class);
-       // $this->call(ActivitySeeder::class);
+        $this->call(ActivitySeeder::class);
       //  $this->call(TaskSeeder::class);
         
     }

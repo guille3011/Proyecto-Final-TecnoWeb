@@ -17,6 +17,15 @@
                 Agregar
             </a>              
              </button> 
+             <button class="rounded-lg bg-light shadow btn-md ">
+                <a href="<?php echo e(route('pdf')); ?>" >
+                    <span>
+                        <i class="fa fa-file " style="color: #fa1808"></i>
+                    </span>
+                    &nbsp;
+                    Pdf
+                </a>              
+                 </button>
           <?php endif; ?>
 
             <div class="overflow-x-auto relative  sm:rounded-lg  ">
