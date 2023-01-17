@@ -1,3 +1,5 @@
+
+
 <?php $__env->startSection('titulo', 'Inicio'); ?>
 
 <?php $__env->startSection('contenido'); ?>
@@ -49,6 +51,7 @@ unset($__errorArgs, $__bag); ?>
           </div>
         </form>
            
+        <div><h4>nro visitas <?php echo e($c); ?></h4></div>
       </div>
    </div>
   

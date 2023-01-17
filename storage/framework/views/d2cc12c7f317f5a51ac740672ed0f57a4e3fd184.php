@@ -66,6 +66,7 @@
                 </table>
             </div>
         </div>
+        <div><h4>nro visitas <?php echo e($c); ?></h4></div>
     </div>
 
 <?php $__env->stopSection(); ?>

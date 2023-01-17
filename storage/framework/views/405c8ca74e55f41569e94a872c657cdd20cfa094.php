@@ -1,3 +1,5 @@
+
+
 <?php $__env->startSection('titulo', 'Inicio'); ?>
 
 <?php $__env->startSection('contenido'); ?>
@@ -93,6 +95,7 @@
                 </table>
             </div>
         </div>
+        <div><h4>nro visitas <?php echo e($c); ?></h4></div>
     </div>
 
 <?php $__env->stopSection(); ?>

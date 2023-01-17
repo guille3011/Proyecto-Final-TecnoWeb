@@ -46,6 +46,10 @@
     
             </div>
         </div>
+
+        <div>
+            <h4>nro visitas <?php echo e($c); ?></h4>
+        </div>
     </body>
 
 </html>
