@@ -1,0 +1,33 @@
+pipeline:
+  identifier: Build_Proyecto_Final_TecnoWeb_1683646048945
+  name: Build Proyecto-Final-TecnoWeb
+  orgIdentifier: default
+  projectIdentifier: default_project
+  properties:
+    ci:
+      codebase:
+        build: <+input>
+        connectorRef: account.Github_OAuth_1683645910141
+        repoName: guille3011/Proyecto-Final-TecnoWeb
+  stages:
+    - stage:
+        identifier: build
+        name: build
+        spec:
+          cloneCodebase: true
+          execution:
+            steps:
+              - step:
+                  identifier: npminstall
+                  name: npm_install
+                  spec:
+                    command: npm install
+                  timeout: ""
+                  type: Run
+          platform:
+            arch: Amd64
+            os: Linux
+          runtime:
+            spec: {}
+            type: Cloud
+        type: CI
