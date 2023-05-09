@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_Proyecto_Final_TecnoWeb_1683646048945-pr-trigger-input-set
+  identifier: Build_Proyecto_Final_TecnoWeb_1683646048945prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_Proyecto_Final_TecnoWeb_1683646048945
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
